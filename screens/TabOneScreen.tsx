@@ -5,6 +5,8 @@ import { Text, View } from '../components/Themed';
 import { openBrowserAsync } from 'expo-web-browser';
 import { BlurView } from 'expo';
 
+//Silvan Sucks
+
 var weekday = new Date().getDay();
 
 var date = new Date().getDate();

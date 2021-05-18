@@ -14,17 +14,19 @@ import { Feather } from '@expo/vector-icons';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
+const tabBarOptions = {
+  activeTintColor: "tomato",
+  activeBackgroundColor: "white",
+  inactiveBackgroundColor: "white",
+  inactiveTintColor: "grey"
+}
+
 export default function BottomTabNavigator(this: any) {
-  const colorScheme = useColorScheme();
+
   return (
     <BottomTab.Navigator
       initialRouteName="TabOne"
-      tabBarOptions={{
-        activeTintColor: "tomato",
-        activeBackgroundColor: "white",
-        inactiveBackgroundColor: "white",
-      }}
-
+      tabBarOptions={tabBarOptions}
     >
       <BottomTab.Screen
         name="TabOne"
