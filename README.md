@@ -8,4 +8,4 @@ Eine simple App für meine Schule gemacht mit react-native.
 
 ## Download
 Es ist nur erhältlich auf **Android**
-### [Zum Download](http://https://drive.google.com/file/d/1runJ9NakdQ1T0KEhF-bmyYM81e8g_03J/view?usp=sharing "Zum Download")
+### [Zum Download](https://drive.google.com/file/d/1cLzGohM6u2sa25nLlHXHWbcIPpdXM5tr/view?usp=sharing "Zum Download")
