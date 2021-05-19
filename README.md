@@ -1,5 +1,5 @@
 # Innofizielle BKS App
-Eine simple App für meine Schule gemacht mit react-native.
+Eine simple App für meine Schule, gemacht mit react-native.
 
 ## Features
 - Shortcuts (Webmail, Cloud, Menüplan, Stundenplan, Schulnetz und BKS Website)
