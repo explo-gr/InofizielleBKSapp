@@ -1,4 +1,4 @@
-# Innofizielle BKS App
+# Inofizielle BKS App
 Eine simple App für meine Schule, gemacht mit React-Native.
 
 ## Features
