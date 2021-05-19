@@ -4,6 +4,10 @@ import { Text, View } from '../components/Themed';
 import { TextInput, TouchableOpacity, Image } from 'react-native';
 import { useState } from 'react';
 
+const grade = () => {
+  
+}
+
 const NoteTool = () => {
   const [text, setText] = useState('');
   const [value, setValue] = useState('');
@@ -30,8 +34,8 @@ const NoteTool = () => {
           />
         </TouchableOpacity>
       </View>
-      <Text style={styles.note} > {Math.round((Number(value) * 5 / Number(text) + 1) * 10) / 10} </Text>
-      <Text style={styles.note2} > {Math.round(((Number(value) / Number(text)) * 100) * 10) / 10 + "% Richtig"} </Text>
+      <Text style={styles.note}> {Math.round((Number(value) * 5 / Number(text) + 1) * 10) / 10} </Text>
+      <Text style={styles.note2}> {Math.round(((Number(value) / Number(text)) * 100) * 10) / 10 + "% Richtig"} </Text>
     </View>
   );
 }

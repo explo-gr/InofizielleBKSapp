@@ -63,8 +63,8 @@ export default function BottomTabNavigator(this: any) {
         name="TabThree"
         component={TabThreeNavigator}
         options={{
-          tabBarIcon: ({ color }) => <Feather size={24} name="info" color={color} />,
-          title: "Über",
+          tabBarIcon: ({ color }) => <Feather name="settings" size={24} color={color} />,
+          title: "Einstellungen",
           tabBarButton: props => <TouchableOpacity {...props} delayPressIn={0} activeOpacity={.7} />,
           tabBarVisible: true
         }}
@@ -76,9 +76,6 @@ export default function BottomTabNavigator(this: any) {
 
 // You can explore the built-in icon families and icons on the web at:
 // https://icons.expo.fyi/
-function TabBarIcon(props: { name: string; color: string }) {
-  return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
-}
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
@@ -131,7 +128,7 @@ function TabThreeNavigator() {
         name="TabThreeScreen"
         component={TabThreeScreen}
         options={{
-          headerTitle: 'Über',
+          headerTitle: 'Einstellungen',
           headerStyle: {
             borderBottomLeftRadius: 20,
             borderBottomRightRadius: 20,

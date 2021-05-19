@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SectionList } from 'react-native';
+import { Alert, SectionList } from 'react-native';
 import { SafeAreaView } from 'react-native';
 import { TextInput } from 'react-native';
 import { StyleSheet, View } from 'react-native';
@@ -10,7 +10,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 var DATA = [
   {
     title: 'Todo List',
-    data: ['Add Tasks to the List', 'Lernen', 'Test'],
+    data: ['you can add tasks to the list', 'Lernen'],
   }
 ];
 
@@ -28,10 +28,11 @@ const getTodo = async () => {
 
 getTodo();
 
-const saveTodo = async (bookmarksArray: any) => {
+const saveTodo = async (bookmarksArray: any, resetText: () => void) => {
   try {
     const bookmarksString = JSON.stringify(bookmarksArray);
     await AsyncStorage.setItem('@app:todo', bookmarksString);
+    resetText();
   } catch (error) {
     alert("Speichern der Daten Fehlgeschlagen");
   }
@@ -56,10 +57,10 @@ const CheckButton: React.FC<CheckButtonIn> = ({ title, setTextFunc }) => {
 const Item: React.FC<ItemProp> = ({ title, setTextFunc }) => (
   <>
     <View style={styles.separator} />
-    <View style={{ marginLeft: 10, flexDirection: "row" }}>
+    <View style={{ marginLeft: 8, width: "80%", flexDirection: "row" }} >
 
       <CheckButton title={title} setTextFunc={() => setTextFunc()} />
-      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.title} adjustsFontSizeToFit numberOfLines={4} onPress={() => {}}>{title}</Text>
     </View>
   </>
 );
@@ -81,6 +82,8 @@ function getRandom() {
   return num.toString();
 }
 
+const PLACEHOLDER_COLOR = "white";
+
 export default function App() {
   const [text, setText] = useState('');
   return (
@@ -92,16 +95,16 @@ export default function App() {
           <SectionList
             sections={DATA}
             keyExtractor={(item, index) => item + index}
-            renderItem={({ item }) => <Item setTextFunc={() => { setText(getRandom()); saveTodo(DATA) }} title={item} />}
+            renderItem={({ item }) => <Item setTextFunc={() => { setText(getRandom()); saveTodo(DATA,() => setText("")) }} title={item} />}
             renderSectionHeader={({ section: { title } }) => <TextInput
               placeholder="Todo Hinzufügen"
               onTouchStart={() => { setText(""); }}
               onChangeText={text => setText(text)}
+              placeholderTextColor={"white"}
               onSubmitEditing={() => {
                 if (text.length > 0)
                   DATA[0].data.push(text);
-                  setText("Todo wurde hinzugefügt");
-                  saveTodo(DATA);
+                  saveTodo(DATA,() => setText("Todo wurde hinzugefügt"));
               }}
               defaultValue={text}
               style={styles.input} />} />
@@ -118,12 +121,14 @@ const styles = StyleSheet.create({
   title: {
     marginTop: 5,
     marginBottom: 5,
-    left: 45,
-    fontSize: 20,
+    left: 30,
+    fontSize: 18,
     fontWeight: 'bold',
+    textAlign: 'left',
+    
   },
   separator: {
-    marginVertical: 30,
+    marginVertical: 20,
     height: 1,
     width: '90%',
     backgroundColor: 'grey',
@@ -133,7 +138,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignSelf: "center",
     width: "90%",
-    color: "grey",
+    color: PLACEHOLDER_COLOR,
     backgroundColor: "#393e46",
     height: 40,
     marginTop: 10
