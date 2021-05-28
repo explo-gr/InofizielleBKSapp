@@ -10,9 +10,9 @@ Eine simple App für meine Schule, gemacht mit React-Native und Expo.
 Es ist nur erhältlich auf **Android**
 ### [Zum Download](https://drive.google.com/file/d/1cLzGohM6u2sa25nLlHXHWbcIPpdXM5tr/view?usp=sharing "Zum Download")
 
-##Info
+## Info
 Im Source-Code sind nicht alle Dateien enthalten.
 
-##Changelog
+## Changelog
 - UI Improvements
 - Man kann wählen ob man die Mobile oder die Standart-Version oder die Mobile-Version vom Schulnetz nutzen möchte
