@@ -1,8 +1,8 @@
 import { Picker } from '@react-native-picker/picker'
 import { setStatusBarBackgroundColor } from 'expo-status-bar';
 import * as React from 'react';
-import { StyleSheet, Image } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
+import { StyleSheet, Image, Switch } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { MonoText } from '../components/StyledText';
 import { Text, View } from '../components/Themed';
@@ -22,7 +22,7 @@ function SetStatusBarColor() {
   setTimeout(function () { setStatusBarBackgroundColor("black", true); }, 12000);
 }
 
-export var ClassNumber:any = "1uga";
+export var ClassNumber: any = "1uga";
 
 
 const getClass = async () => {
@@ -42,18 +42,39 @@ const getClass = async () => {
         "3gb",
         "3gc",
         "3gd",
+        "3ge",
+        "3gf",
+        "3gg",
+        "3gh",
+        "3gi",
         "4ga",
         "4gb",
         "4gc",
         "4gd",
+        "4ge",
+        "4gf",
+        "4gg",
+        "4gh",
+        "4gi",
         "5ga",
         "5gb",
         "5gc",
         "5gd",
+        "5ge",
+        "5gf",
+        "5gg",
+        "5gh",
+        "5gi",
         "6ga",
         "6gb",
         "6gc",
         "6gd",
+        "6ge",
+        "6gf",
+        "6gg",
+        "6gh",
+        "6gi",
+        "6gk"
       ]
       ClassNumber = classIndex[Number(classString)];
     }
@@ -64,39 +85,10 @@ const getClass = async () => {
 
 getClass();
 
-/* var classIndex = [
-  "1Uga",
-  "1Ugb",
-  "1Ugc",
-  "1Ugd",
-  "2Uga",
-  "2Ugb",
-  "2Ugc",
-  "2Ugd",
-  "3ga",
-  "3gb",
-  "3gc",
-  "3gd",
-  "4ga",
-  "4gb",
-  "4gc",
-  "4gd",
-  "5ga",
-  "5gb",
-  "5gc",
-  "5gd",
-  "6ga",
-  "6gb",
-  "6gc",
-  "6gd",
-]
-console.log("Returned String: " + classIndex[Number(classString)-1])
-return classIndex[Number(classString)-1] */
-
 
 console.log("ClassNumber war ursprünglich:" + ClassNumber)
 
-const saveClass = async (classString:Number) => {
+const saveClass = async (classString: Number) => {
   try {
     await AsyncStorage.setItem('@app:class', classString.toString());
     getClass();
@@ -105,17 +97,29 @@ const saveClass = async (classString:Number) => {
   }
 };
 
+export var MobileSchulnetzOutput: string | null;
+
+const set = async (mobile: boolean) => {
+  if (!(typeof mobile === 'undefined')) {
+    try {
+      await AsyncStorage.setItem('@app:snclient', mobile.toString());
+    } catch (e) {
+      alert("Speichern/Laden der Daten fehlgeschlagen! \n" + e);
+    }
+  }
+}
+
 function SetClass() {
   const [selectedClass, setSelectedClass] = React.useState(ClassNumber);
   return (
-    <View style={{ backgroundColor: '#393e46', width: '75%', height: '12%', borderRadius: 15 }}>
+    <View style={{ backgroundColor: '#393e46', width: '82%', height: '12%', borderRadius: 15, marginTop: 20 }}>
       <Text style={{ color: 'white', textAlign: "center" }}>
         Derzeitig ausgewählt: {selectedClass}
       </Text>
       <Picker
         mode={'dropdown'}
         dropdownIconColor={'white'}
-        style={{ color: 'white', width: '100%' }}
+        style={{ color: 'white', width: '100%', position: 'absolute', top: '25%' }}
         selectedValue={selectedClass}
         onValueChange={(itemValue, itemIndex) => {
           setSelectedClass(itemValue)
@@ -139,21 +143,42 @@ function SetClass() {
         <Picker.Item label="3gb" value="3gb" />
         <Picker.Item label="3gc" value="3gc" />
         <Picker.Item label="3gd" value="3gd" />
+        <Picker.Item label="3ge" value="3ge" />
+        <Picker.Item label="3gf" value="3gf" />
+        <Picker.Item label="3gg" value="3gg" />
+        <Picker.Item label="3gh" value="3gh" />
+        <Picker.Item label="3gi" value="3gi" />
 
         <Picker.Item label="4ga" value="4ga" />
         <Picker.Item label="4gb" value="4gb" />
         <Picker.Item label="4gc" value="4gc" />
         <Picker.Item label="4gd" value="4gd" />
+        <Picker.Item label="4ge" value="4ge" />
+        <Picker.Item label="4gf" value="4gf" />
+        <Picker.Item label="4gg" value="4gg" />
+        <Picker.Item label="4gh" value="4gh" />
+        <Picker.Item label="4gi" value="4gi" />
 
         <Picker.Item label="5ga" value="5ga" />
         <Picker.Item label="5gb" value="5gb" />
         <Picker.Item label="5gc" value="5gc" />
         <Picker.Item label="5gd" value="5gd" />
+        <Picker.Item label="5ge" value="5ge" />
+        <Picker.Item label="5gf" value="5gf" />
+        <Picker.Item label="5gg" value="5gg" />
+        <Picker.Item label="5gh" value="5gh" />
+        <Picker.Item label="5gi" value="5gi" />
 
         <Picker.Item label="6ga" value="6ga" />
         <Picker.Item label="6gb" value="6gb" />
         <Picker.Item label="6gc" value="6gc" />
         <Picker.Item label="6gd" value="6gd" />
+        <Picker.Item label="6ge" value="6ge" />
+        <Picker.Item label="6gf" value="6gf" />
+        <Picker.Item label="6gg" value="6gg" />
+        <Picker.Item label="6gh" value="6gh" />
+        <Picker.Item label="6gi" value="6gi" />
+        <Picker.Item label="6gk" value="6gk" />
 
       </Picker>
 
@@ -161,18 +186,48 @@ function SetClass() {
   );
 }
 
+function WebOrMobile() {
+  const [isEnabled, setIsEnabled] = React.useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+
+  React.useEffect(() => {
+    set(isEnabled)
+    console.log(isEnabled)
+  }, [isEnabled])
+
+  return (
+    <View style={{ backgroundColor: '#393e46', width: '82%', height: '12%', borderRadius: 15, marginTop: 20 }}>
+      <Text style={{ margin: 20, marginTop: '8.75%', textAlign: 'left', fontSize: 20 }}>
+        {isEnabled ? "Mobile Schulnetz" : "Standart Schulnetz"}
+      </Text>
+      <Switch
+        trackColor={{ false: "#eeeeee", true: "#d1ffcc" }}
+        thumbColor={isEnabled ? "#a1ff96" : "#ffffff"}
+        ios_backgroundColor="#3e3e3e"
+        onValueChange={toggleSwitch}
+        value={isEnabled}
+        style={{
+          position: 'absolute',
+          top: '35%',
+          marginLeft: '70%'
+        }}
+      />
+    </View>
+  )
+}
+
 export default function TabThreeScreen() {
-  const [selectedClass, setSelectedClass] = React.useState();
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Klasse</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       <SetClass />
-
+      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+      <Text style={styles.title}>Schulnetz</Text>
+      <WebOrMobile />
 
       <View style={styles.version}>
         <Image style={{ height: 60, width: 60, borderRadius: 20 }} source={require("../assets/images/icon.png")} ></Image>
-        <MonoText onLongPress={() => { SetStatusBarColor(); }} style={{ marginTop: 20, marginLeft: 5 }}>Version 1.0</MonoText>
+        <MonoText onLongPress={() => { SetStatusBarColor(); }} style={{ marginTop: 20, marginLeft: 5 }}>Version 1.1</MonoText>
       </View>
     </View>
   );
@@ -184,7 +239,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   version: {
-    marginTop: '100%',
+    marginTop: '75%',
     flexDirection: 'row',
   },
   title: {

@@ -2,7 +2,7 @@
   "expo": {
     "name": "Kanti Tools",
     "slug": "Tools",
-    "version": "1.0.0",
+    "version": "1.2.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -26,7 +26,8 @@
       "favicon": "./assets/images/favicon.png"
     },
     "android": {
-      "package": "com.gianm.schoolapp"
+      "package": "com.gianm.schoolapp",
+      "softwareKeyboardLayoutMode": "pan"
     }
   }
 }

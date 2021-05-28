@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { StyleSheet, TouchableOpacity, Linking, ImageBackground } from 'react-native';
+import { StyleSheet, TouchableOpacity, Linking, ImageBackground, Animated } from 'react-native';
 import { MaterialIcons, MaterialCommunityIcons, Feather } from '@expo/vector-icons';
 import { Text, View } from '../components/Themed';
-import { openBrowserAsync } from 'expo-web-browser';
+import * as WebBrowser from 'expo-web-browser';
 import { ClassNumber } from './TabThreeScreen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //Silvan Sucks
 
@@ -40,18 +41,31 @@ function getStundenplan() {
   Linking.openURL("https://www.gr.ch/DE/institutionen/verwaltung/ekud/ahb/bks/dokumentation/klassen/Documents/Klasse_" + ClassNumber + ".pdf")
 }
 
+var MobileSchulnetzOutput: string | null
+
+const getClient = async () => {
+  MobileSchulnetzOutput = await AsyncStorage.getItem('@app:snclient');
+}
+
+//https://www.schul-netz.com/mobile/login?mandant=https:%2F%2Fschulnetz.bks-campus.ch/
+//https://schulnetz.bks-campus.ch/
+
 export default function TabOneScreen() {
   return (
     <View style={styles.container}>
       <GetGreeting />
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       <View style={styles.button}>
-        <TouchableOpacity style={styles.box} delayPressIn={0} onPress={() => { openBrowserAsync("https://webmail.bks-campus.ch/") }}>
+        <TouchableOpacity style={styles.box} delayPressIn={0} onPress={() => { WebBrowser.openBrowserAsync("https://webmail.bks-campus.ch/") }}>
           <MaterialIcons name="mail" size={30} style={{ alignSelf: "center", color: "tomato", marginTop: 10 }} />
-          <Text style={styles.boxtext}>Webmail </Text>
+          <Text style={styles.boxtext}>Webmail</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.box} delayPressIn={0} onPress={() => { openBrowserAsync("https://cloud.bks-campus.ch/") }}>
+        <TouchableOpacity style={styles.box} delayPressIn={0} onPress={() => {
+          WebBrowser.openBrowserAsync("https://cloud.bks-campus.ch/", {
+            enableBarCollapsing: true
+          })
+        }}>
           <MaterialIcons name="wb-cloudy" size={30} style={{ alignSelf: "center", color: "#99CCFF", marginTop: 10 }} />
           <Text style={styles.boxtext}>Cloud</Text>
         </TouchableOpacity>
@@ -75,12 +89,17 @@ export default function TabOneScreen() {
 
       <View style={styles.button}>
 
-        <TouchableOpacity style={styles.box} delayPressIn={0} onPress={() => { openBrowserAsync("https://schulnetz.bks-campus.ch/") }}>
+        <TouchableOpacity style={styles.box} delayPressIn={0} onPressIn={() => {getClient();}} onPress={() => {
+          (MobileSchulnetzOutput == 'false') ?
+          WebBrowser.openBrowserAsync("https://schulnetz.bks-campus.ch/", {
+            enableBarCollapsing: true
+          }) : WebBrowser.openBrowserAsync("https://www.schul-netz.com/mobile/login?mandant=https:%2F%2Fschulnetz.bks-campus.ch")
+        }}>
           <MaterialCommunityIcons name="school" size={30} style={{ alignSelf: "center", color: "#24e347", marginTop: 10 }} />
           <Text style={styles.boxtext}>Schulnetz</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.box} delayPressIn={0} onPress={() => { openBrowserAsync("https://bks-campus.ch/") }}>
+        <TouchableOpacity style={styles.box} delayPressIn={0} onPress={() => { WebBrowser.openBrowserAsync("https://bks-campus.ch/") }}>
           <MaterialCommunityIcons name="earth" size={30} style={{ alignSelf: "center", color: "yellow", marginTop: 10 }} />
           <Text style={styles.boxtext}>BKS Website</Text>
         </TouchableOpacity>
@@ -123,8 +142,6 @@ export default function TabOneScreen() {
 
       <Text style={{ fontSize: 25 }} >{date + ". " + (Number(month) + 1) + ". " + new Date().getFullYear()}</Text>
     </View>
-
-
   );
 }
 

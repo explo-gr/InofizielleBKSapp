@@ -3,9 +3,46 @@ import { StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { TextInput, TouchableOpacity, Image } from 'react-native';
 import { useState } from 'react';
+import useColorScheme from '../hooks/useColorScheme';
 
 const grade = () => {
   
+}
+
+function useFontColorScheme() {
+  if(!(useColorScheme() == "dark")) {
+    return "white"
+  } else {
+    return "black"
+  }
+}
+
+function FinalCalcPro(value: any) {
+  if(isNaN(value)) {
+    return 0
+  }
+
+  if(!isFinite(value)) return 0
+
+  if(!isNaN(value)) {
+    if(value > 6) return "6+"
+    return value
+  }
+
+}
+
+function FinalCalcPro2(value: any) {
+  if(isNaN(value)) {
+    return "0% Korrekt"
+  }
+
+  if(!isFinite(value)) return "0% Korrekt"
+
+  if(!isNaN(value)) {
+    if(value > 100) return "100%+ Korrekt"
+    return value + "% Korrekt"
+  }
+
 }
 
 const NoteTool = () => {
@@ -15,7 +52,7 @@ const NoteTool = () => {
     <View style={styles.container}>
       <View style={styles.box}>
         <TouchableOpacity style={styles.input} delayPressIn={0}>
-          <Text style={{textAlign: "center", marginTop: 5}}>Erreichte Punkte</Text>
+          <Text style={{textAlign: "center", marginTop: 5, color: "white"}}>Erreichte Punkte</Text>
           <TextInput
             style={{ height: '80%', width: '80%', color: 'white', alignSelf: "center" }}
             onChangeText={value => setValue(value)}
@@ -25,7 +62,7 @@ const NoteTool = () => {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.input} delayPressIn={0}>
-        <Text style={{textAlign: "center", marginTop: 5}}>Maximale Punkte</Text>
+        <Text style={{textAlign: "center", marginTop: 5, color: "white"}}>Maximale Punkte</Text>
           <TextInput
             style={{ height: '80%', width: '80%', color: 'white', alignSelf: 'center' }}
             onChangeText={text => setText(text)}
@@ -34,8 +71,8 @@ const NoteTool = () => {
           />
         </TouchableOpacity>
       </View>
-      <Text style={styles.note}> {Math.round((Number(value) * 5 / Number(text) + 1) * 10) / 10} </Text>
-      <Text style={styles.note2}> {Math.round(((Number(value) / Number(text)) * 100) * 10) / 10 + "% Richtig"} </Text>
+      <Text style={styles.note}> {FinalCalcPro(Math.round((Number(value) * 5 / Number(text) + 1) * 10) / 10)} </Text>
+      <Text style={styles.note2}> {FinalCalcPro2(Math.round(((Number(value) / Number(text)) * 100) * 10) / 10)} </Text>
     </View>
   );
 }
@@ -46,10 +83,7 @@ export default function TabTwoScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-
       <NoteTool />
-
-
     </View>
   );
 }

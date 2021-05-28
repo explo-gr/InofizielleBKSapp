@@ -5,14 +5,16 @@ import { TextInput } from 'react-native';
 import { StyleSheet, View } from 'react-native';
 import { CloseButtonIcon, Text } from '../components/Themed'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 var DATA = [
   {
     title: 'Todo List',
-    data: ['you can add tasks to the list', 'Lernen'],
+    data: ['füge Aufgaben hinzu'],
   }
 ];
+
+export var TodoLength = DATA[0].data.length;
 
 const getTodo = async () => {
   try {
@@ -20,6 +22,7 @@ const getTodo = async () => {
     if (bookmarksString !== null) {
       const bookmarksArray = JSON.parse(bookmarksString);
       DATA = bookmarksArray;
+      TodoLength = DATA[0].data.length
     }
   } catch (error) {
     alert("Laden der Daten Fehlgeschlagen");
@@ -33,6 +36,7 @@ const saveTodo = async (bookmarksArray: any, resetText: () => void) => {
     const bookmarksString = JSON.stringify(bookmarksArray);
     await AsyncStorage.setItem('@app:todo', bookmarksString);
     resetText();
+    TodoLength = DATA[0].data.length;
   } catch (error) {
     alert("Speichern der Daten Fehlgeschlagen");
   }
@@ -91,7 +95,7 @@ export default function App() {
       <SafeAreaView style={{ width: '100%', justifyContent: "center" }}>
         <View style={{margin: 10}}>
         </View>
-        <ScrollView>
+        <ScrollView style={{marginBottom: 10}}>
           <SectionList
             sections={DATA}
             keyExtractor={(item, index) => item + index}

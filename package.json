@@ -1,0 +1,66 @@
+{
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "eject": "expo eject",
+    "test": "jest --watchAll"
+  },
+  "jest": {
+    "preset": "jest-expo"
+  },
+  "dependencies": {
+    "@expo/traveling-fastlane-linux": "^1.15.1",
+    "@expo/vector-icons": "^12.0.0",
+    "@react-native-community/blur": "^3.6.0",
+    "@react-native-community/masked-view": "0.1.10",
+    "@react-native-picker/picker": "1.9.11",
+    "@react-navigation/bottom-tabs": "^5.8.0",
+    "@react-navigation/drawer": "^5.9.3",
+    "@react-navigation/native": "^5.7.3",
+    "@react-navigation/stack": "^5.9.0",
+    "expo": "^41.0.0",
+    "expo-asset": "~8.3.1",
+    "expo-blur": "~9.0.3",
+    "expo-constants": "~10.1.3",
+    "expo-font": "~9.1.0",
+    "expo-linking": "~2.2.3",
+    "expo-splash-screen": "~0.10.2",
+    "expo-status-bar": "~1.0.4",
+    "expo-web-browser": "~9.1.0",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
+    "react-native-document-picker": "^3.5.4",
+    "react-native-gesture-handler": "~1.10.2",
+    "react-native-safe-area-context": "3.2.0",
+    "react-native-screens": "~3.0.0",
+    "react-native-web": "~0.13.12",
+    "react-native-webview": "11.2.3",
+    "@react-native-async-storage/async-storage": "^1.13.0"
+  },
+  "devDependencies": {
+    "@babel/core": "~7.9.0",
+    "@types/react": "~16.9.35",
+    "@types/react-native": "~0.63.2",
+    "jest-expo": "^41.0.0",
+    "typescript": "~4.0.0"
+  },
+  "expo": {
+    "name": "KompetenzTuning",
+    "icon": ".assets/images/icon.png",
+    "version": "1.0.0",
+    "slug": "i-dont-know",
+    "ios": {
+      "bundleIdentifier": "com.gianm.schoolapp",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.gianm.schoolapp",
+      "versionCode": 1
+    }
+  },
+  "private": false
+}

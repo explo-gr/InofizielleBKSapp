@@ -2,7 +2,7 @@ import { Ionicons, MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
-import { TouchableOpacity } from "react-native";
+import { Animated, AppState, TouchableOpacity } from "react-native";
 
 import useColorScheme from '../hooks/useColorScheme';
 import TabOneScreen from '../screens/TabOneScreen';
@@ -11,30 +11,95 @@ import TabTwoScreen from '../screens/TabTwoScreen';
 import TabFourScreen from '../screens/TabFourScreen';
 import { BottomTabParamList, TabOneParamList, TabTwoParamList, TabThreeParamList, TabFourParamList } from '../types';
 import { Feather } from '@expo/vector-icons';
+import { TodoLength } from '../screens/TabFourScreen';
+
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
-const tabBarOptions = {
-  activeTintColor: "tomato",
-  activeBackgroundColor: "white",
-  inactiveBackgroundColor: "white",
-  inactiveTintColor: "grey"
+function useFontColorScheme() {
+  if (useColorScheme() == "dark") {
+    return "white"
+  } else {
+    return "black"
+  }
 }
 
-export default function BottomTabNavigator(this: any) {
+function useInterval(callback: (pointerInside?: String) => void, delay: number) {
+  const savedCallback:any = React.useRef();
+
+  // Remember the latest callback.
+  React.useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
+
+  // Set up the interval.
+  React.useEffect(() => {
+    function tick() {
+      savedCallback.current();
+    }
+    if (delay !== null) {
+      let id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
+}
+
+function getTodoLength() {
+  return TodoLength
+}
+
+function useFadeIn() {
+  const opacityRef = React.useRef<Animated.Value | undefined>(undefined);
+  if (opacityRef.current === undefined)
+    opacityRef.current = new Animated.Value(0);
+
+  React.useEffect(() => {
+    Animated.timing(opacityRef.current, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+  }, []);
+
+  return opacityRef.current;
+}
+
+export default function BottomTabNavigator() {
+  const opacity = useFadeIn();
+  const [ TodoLength, updateTodoLength ] = React.useState(getTodoLength)
+
+  useInterval(() => {
+    updateTodoLength(getTodoLength);
+  }, 100)
 
   return (
+    <Animated.View style={{ opacity, height: '100%', width: '100%' }}>
     <BottomTab.Navigator
+      lazy={false}
       initialRouteName="TabOne"
-      tabBarOptions={tabBarOptions}
+      tabBarOptions={{
+        activeTintColor: useFontColorScheme(),
+        activeBackgroundColor: useColorScheme(),
+        inactiveBackgroundColor: useColorScheme(),
+        inactiveTintColor: "grey",
+        keyboardHidesTabBar: true
+      }}
     >
+      
       <BottomTab.Screen
         name="TabOne"
         component={TabOneNavigator}
         options={{
-          tabBarIcon: ({ color }) => <MaterialIcons size={24} name="class" color={color} />,
+          tabBarIcon: ({ focused }) => {
+            if (focused) {
+              return <MaterialIcons size={24} name="class" color={"tomato"} />
+            } else {
+              return <MaterialIcons size={24} name="class" color={"#fc806a"} />
+            }
+          },
           title: "Start",
           tabBarButton: props => <TouchableOpacity {...props} delayPressIn={0} activeOpacity={.7} />,
+          //tabBarBadge: 
         }}
 
       />
@@ -42,9 +107,15 @@ export default function BottomTabNavigator(this: any) {
         name="TabTwo"
         component={TabTwoNavigator}
         options={{
-          tabBarIcon: ({ color }) => <Ionicons name="ios-calculator" size={25} color={color} />,
+          tabBarIcon: ({ focused }) => {
+            if (focused) {
+              return <Ionicons name="ios-calculator" size={25} color={"#4287f5"} />
+            } else {
+              return <Ionicons name="ios-calculator" size={25} color={"#6da2f7"} />
+            }
+          },
           title: "Notenrechner",
-          tabBarButton: props => <TouchableOpacity {...props} delayPressIn={0} activeOpacity={.7} />,
+          tabBarButton: props => <TouchableOpacity {...props} delayPressIn={0} activeOpacity={.7} />
         }}
       />
 
@@ -52,10 +123,17 @@ export default function BottomTabNavigator(this: any) {
         name="TabFour"
         component={TabFourNavigator}
         options={{
-          tabBarIcon: ({ color }) => <FontAwesome5 size={24} name="file-alt" color={color} />,
+          tabBarIcon: ({ focused }) => {
+            if (focused) {
+              return <FontAwesome5 size={24} name="file-alt" color={"#ffda0a"} />
+            } else {
+              return <FontAwesome5 size={24} name="file-alt" color={"#f7e57c"} />
+            }
+          },
           title: "Todo-Liste",
           tabBarButton: props => <TouchableOpacity {...props} delayPressIn={0} activeOpacity={.7} />,
-          tabBarVisible: true
+          tabBarVisible: true,
+          tabBarBadge: TodoLength
         }}
       />
 
@@ -63,14 +141,29 @@ export default function BottomTabNavigator(this: any) {
         name="TabThree"
         component={TabThreeNavigator}
         options={{
-          tabBarIcon: ({ color }) => <Feather name="settings" size={24} color={color} />,
+          tabBarIcon: ({ focused }) => {
+            if (focused) {
+              return <Feather name="settings" size={24} color={useFontColorScheme()} />
+            }
+            else {
+              if (useColorScheme() == 'dark') {
+                return <Feather name="settings" size={24} color={"#d6d6d6"}/>
+            } else {
+              return <Feather name="settings" size={24} color={"#545454"}/>
+            }
+            }
+
+
+          },
           title: "Einstellungen",
           tabBarButton: props => <TouchableOpacity {...props} delayPressIn={0} activeOpacity={.7} />,
-          tabBarVisible: true
+          tabBarVisible: true,
+
         }}
       />
 
     </BottomTab.Navigator>
+    </Animated.View>
   );
 }
 
