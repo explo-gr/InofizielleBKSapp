@@ -14,5 +14,6 @@ Es ist nur erhältlich auf **Android**
 Im Source-Code sind nicht alle Dateien enthalten.
 
 ## Changelog
+- Speicherbug behoben
 - UI Improvements
 - Man kann wählen ob man die Mobile oder die Standart-Version oder die Mobile-Version vom Schulnetz nutzen möchte
