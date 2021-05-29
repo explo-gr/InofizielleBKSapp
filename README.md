@@ -7,11 +7,11 @@ Eine simple App für meine Schule, gemacht mit React-Native und Expo.
 - Todo-Liste
 
 ## Download
-Es ist nur erhältlich auf **Android**
+Es ist nur erhältlich auf **Android** als APK
 ### [Zum Download](https://drive.google.com/file/d/1cLzGohM6u2sa25nLlHXHWbcIPpdXM5tr/view?usp=sharing "Zum Download")
 
 ## Info
-Im Source-Code sind nicht alle Dateien enthalten.
+Im Source-Code sind nicht alle Dateien enthalten u. a. die Node Modules.
 
 ## Changelog
 - Speicherbug behoben
