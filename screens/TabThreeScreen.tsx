@@ -186,6 +186,12 @@ function SetClass() {
   );
 }
 
+const getClient = async () => {
+  MobileSchulnetzOutput = await AsyncStorage.getItem('@app:snclient');
+}
+
+getClient();
+
 function WebOrMobile() {
   const [isEnabled, setIsEnabled] = React.useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
@@ -194,6 +200,10 @@ function WebOrMobile() {
     set(isEnabled)
     console.log(isEnabled)
   }, [isEnabled])
+
+  React.useEffect(() => {
+    setIsEnabled(Boolean(MobileSchulnetzOutput))
+  }, [])
 
   return (
     <View style={{ backgroundColor: '#393e46', width: '82%', height: '12%', borderRadius: 15, marginTop: 20 }}>
