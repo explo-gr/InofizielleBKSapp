@@ -5,6 +5,7 @@ Eine simple App für meine Schule, gemacht mit React-Native und Expo.
 - Shortcuts (Webmail, Cloud, Menüplan, Stundenplan, Schulnetz und BKS Website)
 - Notenrechner
 - Todo-Liste
+- Einstellungen für seine Klasse und Schulnetz (Web oder Mobile Version)
 
 ## Download
 Es ist nur erhältlich auf **Android** als APK
@@ -14,9 +15,7 @@ Es ist nur erhältlich auf **Android** als APK
 Im Source-Code sind nicht alle Dateien enthalten u. a. die Node Modules.
 
 ## Changelog
-- Speicherbug behoben
-- UI Improvements
-- Man kann wählen ob man die Mobile oder die Standart-Version oder die Mobile-Version vom Schulnetz nutzen möchte
+- Bug beim Switch behoben
 
 ## Overview
 
