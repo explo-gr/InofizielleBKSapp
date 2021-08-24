@@ -1,7 +1,7 @@
 import { Picker } from '@react-native-picker/picker'
 import { setStatusBarBackgroundColor } from 'expo-status-bar';
 import * as React from 'react';
-import { StyleSheet, Image, Switch } from 'react-native';
+import { StyleSheet, Image, Switch, useColorScheme } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { MonoText } from '../components/StyledText';
@@ -97,12 +97,13 @@ const saveClass = async (classString: Number) => {
   }
 };
 
-export var MobileSchulnetzOutput: string | null;
+var MobileschulnetzOutput: any;
 
 const set = async (mobile: boolean) => {
   if (!(typeof mobile === 'undefined')) {
     try {
       await AsyncStorage.setItem('@app:snclient', mobile.toString());
+      MobileschulnetzOutput = await AsyncStorage.getItem('@app:snclient');
     } catch (e) {
       alert("Speichern/Laden der Daten fehlgeschlagen! \n" + e);
     }
@@ -186,36 +187,50 @@ function SetClass() {
   );
 }
 
-const getClient = async () => {
-  MobileSchulnetzOutput = await AsyncStorage.getItem('@app:snclient');
+function useFontColorScheme() {
+  if (!(useColorScheme() == "dark")) {
+    return "white"
+  } else {
+    return "black"
+  }
 }
-
-getClient();
 
 function WebOrMobile() {
   const [isEnabled, setIsEnabled] = React.useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const [isDisabled, setIsDisabled] = React.useState(true);
 
-  React.useEffect(() => {
-    set(isEnabled)
-    console.log(isEnabled)
-  }, [isEnabled])
+  const getClient = async () => {
+    try {
+      console.log(isEnabled);
+      MobileschulnetzOutput = await AsyncStorage.getItem('@app:snclient');
+      if (MobileschulnetzOutput == "true") {
+        setIsEnabled(true)
+      } else {
+        setIsEnabled(false);
+      }
+      console.log("isEnabled: " + isEnabled);
+      console.log("snclient: " + MobileschulnetzOutput);
+    } catch (e) {
+      alert('Error: ' + e);
+    } finally {
+      setIsDisabled(false);
+    }
+  }
 
-  React.useEffect(() => {
-    setIsEnabled(Boolean(MobileSchulnetzOutput))
-  }, [])
+  React.useEffect(() => { getClient(); }, [])
 
   return (
     <View style={{ backgroundColor: '#393e46', width: '82%', height: '12%', borderRadius: 15, marginTop: 20 }}>
-      <Text style={{ margin: 20, marginTop: '8.75%', textAlign: 'left', fontSize: 20 }}>
+      <Text style={{ margin: 20, marginTop: '8.75%', textAlign: 'left', fontSize: 20, color: useFontColorScheme() }}>
         {isEnabled ? "Mobile Schulnetz" : "Standart Schulnetz"}
       </Text>
       <Switch
         trackColor={{ false: "#eeeeee", true: "#d1ffcc" }}
         thumbColor={isEnabled ? "#a1ff96" : "#ffffff"}
         ios_backgroundColor="#3e3e3e"
-        onValueChange={toggleSwitch}
+        onValueChange={(prevState) => { set(prevState); console.log("onValueChange: " + prevState); setIsEnabled(prevState);}}
         value={isEnabled}
+        disabled={isDisabled}
         style={{
           position: 'absolute',
           top: '35%',
@@ -237,7 +252,7 @@ export default function TabThreeScreen() {
 
       <View style={styles.version}>
         <Image style={{ height: 60, width: 60, borderRadius: 20 }} source={require("../assets/images/icon.png")} ></Image>
-        <MonoText onLongPress={() => { SetStatusBarColor(); }} style={{ marginTop: 20, marginLeft: 5 }}>Version 1.1</MonoText>
+        <MonoText onLongPress={() => { SetStatusBarColor(); }} style={{ marginTop: 20, marginLeft: 5 }}>Version 1.2</MonoText>
       </View>
     </View>
   );

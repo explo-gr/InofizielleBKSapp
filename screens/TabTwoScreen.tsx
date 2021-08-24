@@ -3,19 +3,6 @@ import { StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { TextInput, TouchableOpacity, Image } from 'react-native';
 import { useState } from 'react';
-import useColorScheme from '../hooks/useColorScheme';
-
-const grade = () => {
-  
-}
-
-function useFontColorScheme() {
-  if(!(useColorScheme() == "dark")) {
-    return "white"
-  } else {
-    return "black"
-  }
-}
 
 function FinalCalcPro(value: any) {
   if(isNaN(value)) {

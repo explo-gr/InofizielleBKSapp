@@ -76,7 +76,6 @@ function findItem(text: String) {
     if (DATA[0].data[i] == text) {
       DATA[0].data.splice(i, 1)
       console.log("succes")
-
     }
   }
 }
@@ -113,7 +112,8 @@ export default function App() {
               defaultValue={text}
               style={styles.input} />} />
         </ScrollView>
-      </SafeAreaView></>
+      </SafeAreaView>
+    </>
   );
 }
 
