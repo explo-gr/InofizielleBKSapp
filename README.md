@@ -19,7 +19,7 @@ Im Source-Code sind nicht alle Dateien enthalten u. a. die Node Modules.
 
 ## Overview
 
-![ScreenshotBKS](https://user-images.githubusercontent.com/72090668/120066914-2177b080-c079-11eb-8d4c-a9af128f3766.png =10x)
+![ScreenshotBKS](https://user-images.githubusercontent.com/72090668/120066914-2177b080-c079-11eb-8d4c-a9af128f3766.png)
 ![Screenshot_20210529-123703_Kanti Tools](https://user-images.githubusercontent.com/72090668/120067262-e0809b80-c07a-11eb-80ab-a6b08538a2f5.png)
 ![Screenshot_20210529-122848_Kanti Tools](https://user-images.githubusercontent.com/72090668/120067097-1e30f480-c07a-11eb-88b5-d80b73a8f011.png)
 ![Screenshot0](https://user-images.githubusercontent.com/72090668/120067098-1ec98b00-c07a-11eb-9b4d-79735ec27f5c.png)
