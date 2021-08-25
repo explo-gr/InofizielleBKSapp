@@ -15,7 +15,7 @@ Es ist nur erhältlich auf **Android** als APK
 Im Source-Code sind nicht alle Dateien enthalten u. a. die Node Modules.
 
 ## Changelog
-- Bug beim Switch behoben
+- Bugs behoben
 
 ## Overview
 
