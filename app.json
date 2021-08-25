@@ -27,7 +27,8 @@
     },
     "android": {
       "package": "com.gianm.schoolapp",
-      "softwareKeyboardLayoutMode": "pan"
+      "softwareKeyboardLayoutMode": "pan",
+      "userInterfaceStyle": "automatic"
     }
   }
 }
