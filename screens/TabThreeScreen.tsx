@@ -24,7 +24,6 @@ function SetStatusBarColor() {
 
 export var ClassNumber: any = "1uga";
 
-
 const getClass = async () => {
   try {
     const classString = await AsyncStorage.getItem('@app:class');
@@ -103,8 +102,8 @@ const set = async (mobile: boolean) => {
   if (!(typeof mobile === 'undefined')) {
     try {
       await AsyncStorage.setItem('@app:snclient', mobile.toString());
-      MobileschulnetzOutput = await AsyncStorage.getItem('@app:snclient');
-    } catch (e) {
+    }
+    catch (e) {
       alert("Speichern/Laden der Daten fehlgeschlagen! \n" + e);
     }
   }
@@ -187,22 +186,22 @@ function SetClass() {
   );
 }
 
-function useFontColorScheme() {
-  if (!(useColorScheme() == "dark")) {
-    return "white"
-  } else {
-    return "black"
-  }
-}
-
 function WebOrMobile() {
   const [isEnabled, setIsEnabled] = React.useState(false);
   const [isDisabled, setIsDisabled] = React.useState(true);
 
   const getClient = async () => {
+    let output;
     try {
       console.log(isEnabled);
-      MobileschulnetzOutput = await AsyncStorage.getItem('@app:snclient');
+      output = await AsyncStorage.getItem('@app:snclient');
+      console.log(output);
+      if (output == null) {
+        set(false);
+        MobileschulnetzOutput = "false";
+      } else {
+        MobileschulnetzOutput = output;
+      }
       if (MobileschulnetzOutput == "true") {
         setIsEnabled(true)
       } else {
@@ -221,14 +220,14 @@ function WebOrMobile() {
 
   return (
     <View style={{ backgroundColor: '#393e46', width: '82%', height: '12%', borderRadius: 15, marginTop: 20 }}>
-      <Text style={{ margin: 20, marginTop: '8.75%', textAlign: 'left', fontSize: 20, color: useFontColorScheme() }}>
+      <Text style={{ margin: 20, marginTop: '8.75%', textAlign: 'left', fontSize: 20, color: 'white' }}>
         {isEnabled ? "Mobile Schulnetz" : "Standart Schulnetz"}
       </Text>
       <Switch
         trackColor={{ false: "#eeeeee", true: "#d1ffcc" }}
         thumbColor={isEnabled ? "#a1ff96" : "#ffffff"}
         ios_backgroundColor="#3e3e3e"
-        onValueChange={(prevState) => { set(prevState); console.log("onValueChange: " + prevState); setIsEnabled(prevState);}}
+        onValueChange={(prevState) => { set(prevState); console.log("onValueChange: " + prevState); setIsEnabled(prevState); }}
         value={isEnabled}
         disabled={isDisabled}
         style={{
